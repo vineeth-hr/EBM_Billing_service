@@ -10,8 +10,8 @@ import java.time.LocalDate;
 
 @FeignClient("METERSERVICE")
 public interface MonthlyUsage {
-    @GetMapping("/usage/")
-    Double getMonthlyUsage(@RequestParam("meter_id") long meter_id, @RequestParam("date")LocalDate date);
+    @GetMapping("/usage/get-monthly")
+    Double getMonthlyUsage(@RequestParam("meter_id") long meter_id, @RequestParam("date")String date);
 
     @GetMapping("/meters")
     List<Long> getAllMeterIds();

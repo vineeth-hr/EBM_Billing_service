@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class BillingTask {
     @Autowired
     private BillingService billingService;
-    @Scheduled(fixedRateString = "PT5M")
+    @Scheduled(fixedRateString = "PT2M")
     public void billGenerationTask(){
         billingService.addBill();
     }

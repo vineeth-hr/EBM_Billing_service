@@ -9,11 +9,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class BillingServiceImpl implements BillingService {
 
     @Autowired
@@ -33,9 +35,10 @@ public class BillingServiceImpl implements BillingService {
         }
         for(Long meter: meters){
             logger.info("Bill Generation Job for Meter ID "+meter+ " "+new Date());
-            double totalUsage = monthlyUsage.getMonthlyUsage(meter, LocalDate.now().withDayOfMonth(1).minusDays(1));
+            double totalUsage = monthlyUsage.getMonthlyUsage(meter, LocalDate.now().withDayOfMonth(1).minusDays(1).toString());
             Billing bill = Billing.builder()
                     .meterId(meter)
+                    .unitsInMonth(totalUsage)
                     .amount(totalUsage*8.1)
                     .generatedDate(LocalDate.now())
                     .dueDate(LocalDate.now().plusDays(5))
