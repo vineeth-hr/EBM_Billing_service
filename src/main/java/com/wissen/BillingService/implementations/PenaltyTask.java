@@ -10,7 +10,7 @@ public class PenaltyTask {
     @Autowired
     private BillingService billingService;
 
-    @Scheduled(fixedDelayString = "PT2M")
+    @Scheduled(fixedDelayString = "PT10M")
     public void penaltyScheduler(){
         billingService.updateBillStatusUnpaid();
     }

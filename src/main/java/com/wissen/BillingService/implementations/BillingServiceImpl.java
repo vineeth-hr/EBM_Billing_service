@@ -36,7 +36,9 @@ public class BillingServiceImpl implements BillingService {
         }
         for(Long meter: meters){
             logger.info("Bill Generation Job for Meter ID "+meter+ " "+new Date());
-            double totalUsage = monthlyUsage.getMonthlyUsage(meter, LocalDate.now().withDayOfMonth(1).minusDays(1).toString());
+//            double totalUsage = monthlyUsage.getMonthlyUsage(meter, LocalDate.now().withDayOfMonth(1).minusDays(1).toString());
+            double totalUsage = monthlyUsage.getMonthlyUsage(meter, LocalDate.now().withDayOfMonth(30).toString());
+
             Billing bill = Billing.builder()
                     .meterId(meter)
                     .unitsInMonth(totalUsage)
