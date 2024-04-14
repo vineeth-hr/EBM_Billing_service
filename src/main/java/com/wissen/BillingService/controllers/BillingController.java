@@ -162,8 +162,8 @@ public class BillingController {
         return responses;
     }
 
-    @PutMapping("/update-payment")
-    public ResponseEntity<Billing> updatePaymentStatus(int billId) {
+    @PutMapping("/update-payment/{billId}")
+    public ResponseEntity<Billing> updatePaymentStatus(@PathVariable int billId) {
         Billing bill = service.updateBillStatusPaid(billId);
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
