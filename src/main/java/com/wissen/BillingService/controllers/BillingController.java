@@ -7,6 +7,8 @@ import com.wissen.BillingService.repositories.BillingRepository;
 import com.wissen.BillingService.service.BillingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -139,6 +141,12 @@ public class BillingController {
         );
         log.info("All Paid Bills");
         return responses;
+    }
+
+    @PutMapping("/update-payment")
+    public ResponseEntity<Billing> updatePaymentStatus(int billId) {
+        Billing bill = service.updateBillStatusPaid(billId);
+        return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
 }
