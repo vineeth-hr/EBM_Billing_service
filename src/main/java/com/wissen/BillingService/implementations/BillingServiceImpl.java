@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BillingServiceImpl implements BillingService {
@@ -34,7 +35,9 @@ public class BillingServiceImpl implements BillingService {
         }
         for(Long meter: meters){
             logger.info("Bill Generation Job for Meter ID "+meter+ " "+new Date());
-            double totalUsage = monthlyUsage.getMonthlyUsage(meter, LocalDate.now().withDayOfMonth(1).minusDays(1).toString());
+//            double totalUsage = monthlyUsage.getMonthlyUsage(meter, LocalDate.now().withDayOfMonth(1).minusDays(1).toString());
+            double totalUsage = monthlyUsage.getMonthlyUsage(meter, LocalDate.now().withDayOfMonth(30).toString());
+
             Billing bill = Billing.builder()
                     .meterId(meter)
                     .unitsInMonth(totalUsage)
@@ -53,6 +56,11 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
+    public List<Billing> getBillsByMeterIdAndPaymentStatus(long meterId, PayStatus status){
+        return repository.findByPaymentStatus(PayStatus.UNPAID).stream().filter((bill) -> bill.getMeterId() == meterId).collect(Collectors.toUnmodifiableList());
+    }
+
+    @Override
     public List<Billing> getBillsByPaymentStatus(PayStatus status) {
         return repository.findByPaymentStatus(status);
     }
@@ -63,12 +71,12 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
-    public List<Billing> getBillsByMonth(String month) {
-        return null;
+    public Billing getBillsByMonth(long meterId, int month) {
+        return getBillByMonthAndYear(meterId, month, LocalDate.now().getYear());
     }
 
     @Override
-    public Billing getBillByMonthAndYear(Long meterId, int month, int year) {
+    public Billing getBillByMonthAndYear(long meterId, int month, int year) {
         return repository.getBillByMonthAndYear(meterId, month, year).orElse(null);
     }
 

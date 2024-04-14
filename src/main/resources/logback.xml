@@ -1,0 +1,25 @@
+<configuration>
+    <appender name="billingServiceAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss:SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="billingFileAppender" class="ch.qos.logback.core.FileAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss:SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+        <file>
+            billingLogs.log
+        </file>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="billingServiceAppender" />
+        <appender-ref ref="billingFileAppender" />
+    </root>
+</configuration>

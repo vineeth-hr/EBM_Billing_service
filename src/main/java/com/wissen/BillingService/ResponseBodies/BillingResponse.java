@@ -1,5 +1,6 @@
 package com.wissen.BillingService.ResponseBodies;
 
+import com.wissen.BillingService.models.PayStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +19,5 @@ public class BillingResponse {
     private LocalDate generatedDate;
     private LocalDate dueDate;
     private LocalDate paidDate;
-    private String paymentStatus;
+    private PayStatus paymentStatus;
 }
