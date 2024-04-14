@@ -5,6 +5,7 @@ import com.wissen.BillingService.models.Billing;
 import com.wissen.BillingService.models.PayStatus;
 import com.wissen.BillingService.repositories.BillingRepository;
 import com.wissen.BillingService.service.BillingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Slf4j
 @CrossOrigin("http://localhost:4200")
 @RequestMapping("/billing")
 public class BillingController {
@@ -26,8 +28,6 @@ public class BillingController {
         List<BillingResponse> responses = new ArrayList<>();
 
         bills.forEach(bill -> {
-
-
               BillingResponse resp = BillingResponse.builder().meterId(bill.getMeterId()).build();
               resp.setBillId(bill.getBillId());
               resp.setUnitsInMonth(bill.getUnitsInMonth());
@@ -38,8 +38,9 @@ public class BillingController {
               resp.setGeneratedDate(bill.getGeneratedDate());
               responses.add(resp);
         }
-
         );
+
+        log.info("Unpaid Bills Meter Id");
 
         return responses;
     }
@@ -51,8 +52,6 @@ public class BillingController {
         List<BillingResponse> responses = new ArrayList<>();
 
         bills.forEach(bill -> {
-
-
                     BillingResponse resp = BillingResponse.builder().meterId(bill.getMeterId()).build();
                     resp.setBillId(bill.getBillId());
                     resp.setUnitsInMonth(bill.getUnitsInMonth());
@@ -63,9 +62,8 @@ public class BillingController {
                     resp.setGeneratedDate(bill.getGeneratedDate());
                     responses.add(resp);
                 }
-
         );
-
+        log.info("Paid bills meter Id");
         return responses;
 
     }
@@ -88,7 +86,7 @@ public class BillingController {
                 }
 
         );
-
+        log.info("All Bills");
         return responses;
 
 
@@ -115,7 +113,7 @@ public class BillingController {
                 }
 
         );
-
+        log.info("All Unpaid Bills");
         return responses;
     }
 
@@ -139,7 +137,7 @@ public class BillingController {
                 }
 
         );
-
+        log.info("All Paid Bills");
         return responses;
     }
 
