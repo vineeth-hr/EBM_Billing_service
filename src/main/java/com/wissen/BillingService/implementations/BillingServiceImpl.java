@@ -115,4 +115,11 @@ public class BillingServiceImpl implements BillingService {
             }
         }
     }
+
+    @Override
+    public Billing getBillByBillId(int billId) {
+        return repository.findById(billId).orElse(null);
+    }
+
+
 }

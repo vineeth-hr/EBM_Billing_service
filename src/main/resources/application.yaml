@@ -10,9 +10,10 @@ spring:
     username: postgres
     password: pvsEbmDb24$
     driver-class-name: org.postgresql.Driver
+    max-active: 10
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -28,7 +29,7 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://service-reg-lb-2-1182396161.us-east-1.elb.amazonaws.com:8761/eureka
 
 logging:
   level:

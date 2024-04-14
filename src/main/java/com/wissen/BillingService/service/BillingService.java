@@ -16,4 +16,5 @@ public interface BillingService {
     Billing getBillByMonthAndYear(long meterId, int month, int year);
     Billing updateBillStatusPaid(int billId);
     void updateBillStatusUnpaid();
+    Billing getBillByBillId(int billId);
 }

@@ -8,6 +8,7 @@ import com.wissen.BillingService.models.Billing;
 import com.wissen.BillingService.models.PayStatus;
 import com.wissen.BillingService.repositories.BillingRepository;
 import com.wissen.BillingService.service.BillingService;
+import jakarta.ws.rs.Path;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -162,9 +163,17 @@ public class BillingController {
         return responses;
     }
 
+
+
     @PutMapping("/update-payment/{billId}")
     public ResponseEntity<Billing> updatePaymentStatus(@PathVariable int billId) {
         Billing bill = service.updateBillStatusPaid(billId);
+        return new ResponseEntity<>(bill, HttpStatus.OK);
+    }
+
+    @GetMapping("/getbill/{billId}")
+    public ResponseEntity<Billing> getBillByBillId(@PathVariable int billId){
+        Billing bill =  service.getBillByBillId(billId);
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
