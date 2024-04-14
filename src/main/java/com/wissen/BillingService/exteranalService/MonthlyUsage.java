@@ -13,6 +13,6 @@ public interface MonthlyUsage {
     @GetMapping("/usage/get-monthly")
     Double getMonthlyUsage(@RequestParam("meter_id") long meter_id, @RequestParam("date")String date);
 
-    @GetMapping("/meters")
+    @GetMapping("/meters/get-all-meters")
     List<Long> getAllMeterIds();
 }
