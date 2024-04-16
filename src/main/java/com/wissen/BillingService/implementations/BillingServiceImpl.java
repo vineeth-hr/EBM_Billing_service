@@ -57,7 +57,7 @@ public class BillingServiceImpl implements BillingService {
 
     @Override
     public List<Billing> getBillsByMeterIdAndPaymentStatus(long meterId, PayStatus status){
-        return repository.findByPaymentStatus(PayStatus.PAID).stream().filter((bill) -> bill.getMeterId() == meterId).collect(Collectors.toUnmodifiableList());
+        return repository.findByPaymentStatus(status).stream().filter((bill) -> bill.getMeterId() == meterId).collect(Collectors.toUnmodifiableList());
     }
 
     @Override
