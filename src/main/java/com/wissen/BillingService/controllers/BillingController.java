@@ -6,13 +6,12 @@ import com.wissen.BillingService.customExceptions.NoPaidBillsException;
 import com.wissen.BillingService.customExceptions.NoUnpaidBillsException;
 import com.wissen.BillingService.models.Billing;
 import com.wissen.BillingService.models.PayStatus;
-import com.wissen.BillingService.repositories.BillingRepository;
 import com.wissen.BillingService.service.BillingService;
-import jakarta.ws.rs.Path;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -164,7 +163,7 @@ public class BillingController {
     }
 
 
-
+    @Transactional
     @PutMapping("/update-payment/{billId}")
     public ResponseEntity<Billing> updatePaymentStatus(@PathVariable int billId) {
         Billing bill = service.updateBillStatusPaid(billId);
